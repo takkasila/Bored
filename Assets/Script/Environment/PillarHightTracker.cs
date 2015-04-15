@@ -16,7 +16,7 @@ public class PillarHightTracker : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		Vector3 playerPos = new Vector3(Mathf.Floor(player.transform.position.x) , 0, Mathf.Floor(player.transform.position.z) );
+		Vector3 playerPos = new Vector3(player.transform.position.x , 0, player.transform.position.z);
 		
 		float distance = Vector3.Distance(transform.position, playerPos);
 
