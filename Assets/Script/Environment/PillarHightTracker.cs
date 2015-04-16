@@ -4,7 +4,7 @@ using System.Collections;
 public class PillarHightTracker : MonoBehaviour {
 
 	public float maxHeight = 5;
-	public float threshold = 1;
+	public static float threshold = 1;
 	public float factor = 0.01f;
 
 
