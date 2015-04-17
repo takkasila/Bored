@@ -24,24 +24,25 @@ public class PillarGenerator : MonoBehaviour {
 		proceduralMap();
 
 		updateThreshold();
-
-
 	}
 
 	void proceduralMap()
 	{
-		Vector3 playerPos = new Vector3(Mathf.Floor(player.transform.position.x) , 0, Mathf.Floor(player.transform.position.z) );
+		Vector3 playerPos = new Vector3(Mathf.Round(player.transform.position.x) , 0, Mathf.Round(player.transform.position.z) );
 
-		for (float z=1; z<= radius * 2; z+= width)
+		for (float z=0; z<= radius * 2; z+= width)
 		{
-			for(float x=1; x<= radius *2; x+= height)
+			for(float x=0; x<= radius *2; x+= height)
 			{
 				Vector3 pillarPos = new Vector3(z - radius,0,x - radius) + playerPos;
+
+				pillarPos.z += width/2f;
+				pillarPos.x += height/2f;
+				
 
 				if(Vector3.Distance(pillarPos, playerPos) <= radius)
 				{
 					rayTracePillar(pillarPos);
-					//Instantiate(pillar, blockPos, Quaternion.identity);
 				}
 			}
 		}
@@ -51,10 +52,16 @@ public class PillarGenerator : MonoBehaviour {
 	{
 		RaycastHit hitInfo;
 		pos.y += rayDept;
-		if(!Physics.Raycast(pos, Vector3.down, out hitInfo, rayDept+1))
+		
+		//Debug.DrawRay(pos, Vector3.down*13, Color.red, 0.2f, true);
+		if(Physics.Raycast(pos, Vector3.down, out hitInfo, rayDept+3))
 		{
-			pos.y -= rayDept;
+
+		}
+		else
+		{
 			//hit nothing
+			pos.y -= rayDept;
 			placePillar(pos);
 		}
 	}
